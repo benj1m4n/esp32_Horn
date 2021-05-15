@@ -11,7 +11,7 @@ Horn::Horn(int pin, int channel)
 {
   _pin = pin;
   _channel = channel;
-  _ c1 = 262;
+  _c1 = 262;
   _d1 = 294;
   _e1 = 330;
   _f1 = 349;
@@ -24,6 +24,8 @@ Horn::Horn(int pin, int channel)
   _f2 = 699;
   _g2 = 784;
   _a2 = 880;   
+  ledcSetup(_channel, 2000, 8); // setup beeper
+  ledcAttachPin(_pin, _channel); // attach beeper
 }
 
 void Horn::noTone() {
@@ -31,9 +33,7 @@ void Horn::noTone() {
 }
 
 
-void Horn::newTone(byte pin, int freq) {
-  ledcSetup(_channel, 2000, 8); // setup beeper
-  ledcAttachPin(_pin, _channel); // attach beeper
+void Horn::newTone(int freq) {
   ledcWriteTone(_channel, freq); // play tone
 }
 
@@ -88,7 +88,7 @@ void Horn::generalLee() {
   noTone();
 }
 
-void Horn::laCucaracha() {
+void Horn::laCuCaRacha() {
   newTone(_g1);
   delay(250);
   noTone();

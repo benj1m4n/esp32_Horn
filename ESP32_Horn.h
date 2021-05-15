@@ -16,6 +16,8 @@ class Horn
     void laCuCaRacha();
     void generalLee();
   private:
+    void noTone();
+    void newTone(int freq);
     int _pin;   
     int _channel;
     int _c1;
@@ -31,6 +33,6 @@ class Horn
     int _f2;
     int _g2;
     int _a2;   
-}
+};
 
 #endif
