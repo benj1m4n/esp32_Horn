@@ -37,6 +37,14 @@ void Horn::newTone(int freq) {
   ledcWriteTone(_channel, freq); // play tone
 }
 
+void Horn::honk(){
+  newTone(_g1);
+  delay(150);
+  noTone();
+  newTone(_g1);
+  delay(150);
+  noTone();
+}
 
 void Horn::generalLee() {
   newTone(_g1);
