@@ -24,8 +24,14 @@ Horn::Horn(int pin, int channel)
   _f2 = 699;
   _g2 = 784;
   _a2 = 880;   
+#if ESP_ARDUINO_VERSION_MAJOR >= 3
+  // Core 3.x: Pin an festen Kanal binden, damit er nicht mit anderen
+  // explizit vergebenen LEDC-Kanaelen (z. B. Motor-PWM) kollidiert
+  ledcAttachChannel(_pin, 2000, 8, _channel); // setup + attach beeper
+#else
   ledcSetup(_channel, 2000, 8); // setup beeper
   ledcAttachPin(_pin, _channel); // attach beeper
+#endif
 }
 
 void Horn::noTone() {
@@ -34,7 +40,11 @@ void Horn::noTone() {
 
 
 void Horn::newTone(int freq) {
+#if ESP_ARDUINO_VERSION_MAJOR >= 3
+  ledcWriteTone(_pin, freq); // Core 3.x adressiert den Pin
+#else
   ledcWriteTone(_channel, freq); // play tone
+#endif
 }
 
 void Horn::honk(){
